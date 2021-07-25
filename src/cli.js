@@ -34,6 +34,14 @@ const questionGameType = [
   },
 ];
 
+const questionPlayAgain = [
+  {
+    type: 'confirm',
+    name: 'confirmation',
+    message: 'Are you want to play again ?',
+  },
+];
+
 async function getSelectPlatform() {
   return inquirer.prompt(questionPlatformChoice)
     .then((seletedPlatform) => seletedPlatform.platform);
@@ -65,6 +73,7 @@ function playerVsComputer() {
 
       const winnerItem = rps.getWinner(playerOneChoice, playerTwoChoice);
       showWiner(winnerItem, playerOneChoice, playerTwoChoice);
+      playAgain();
     })
     .catch((error) => {
       console.error('playerVsComputer inquirer ERROR:', error);
@@ -80,6 +89,7 @@ function ComputerVsComputer() {
 
     const winnerItem = rps.getWinner(playerOneChoice, playerTwoChoice);
     showWiner(winnerItem, playerOneChoice, playerTwoChoice);
+    playAgain();
   } catch (error) {
     console.error('ComputerVsComputer ERROR:', error);
   }
@@ -109,6 +119,19 @@ async function play() {
   } catch (error) {
     console.error('play ERROR:', error);
   }
+}
+
+function playAgain() {
+  inquirer
+    .prompt(questionPlayAgain)
+    .then((answer) => {
+      if (answer.confirmation) {
+        play();
+      }
+    })
+    .catch((error) => {
+      console.error('playAgain inquirer ERROR:', error);
+    });
 }
 
 module.exports = {
