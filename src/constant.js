@@ -3,6 +3,11 @@ const PLATFORM = {
   BROWSER: 'browser',
 };
 
+const PLAYER_TYPE = {
+  HUMAN: 'human',
+  COMPUTER: 'computer',
+};
+
 const ELEMENTS = {
   ROCK: 'rock',
   PAPER: 'paper',
@@ -11,5 +16,6 @@ const ELEMENTS = {
 
 module.exports = {
   PLATFORM,
+  PLAYER_TYPE,
   ELEMENTS,
 };

@@ -1,16 +1,11 @@
+/* eslint-disable no-console */
 const inquirer = require('inquirer');
+const chalk = require('chalk');
 
 const rps = require('./rps');
-const { PLATFORM, ELEMENTS } = require('./constant');
-
-const questionPlatformChoice = [
-  {
-    type: 'list',
-    name: 'platform',
-    message: 'Select platform to paly the game!',
-    choices: [PLATFORM.CLI, PLATFORM.BROWSER],
-  },
-];
+const {
+  PLATFORM, PLAYER_TYPE, ELEMENTS,
+} = require('./constant');
 
 const questionElementChoice = [
   {
@@ -21,28 +16,40 @@ const questionElementChoice = [
   },
 ];
 
+const questionPlatformChoice = [
+  {
+    type: 'list',
+    name: 'platform',
+    message: 'Select platform to paly game!',
+    choices: [PLATFORM.CLI, PLATFORM.BROWSER],
+  },
+];
+
 async function getSelectPlatform() {
   return inquirer.prompt(questionPlatformChoice)
     .then((seletedPlatform) => seletedPlatform.platform);
 }
 
-function play() {
+function startGame() {
   const elements = rps.getElements();
   inquirer
     .prompt(questionElementChoice)
     .then((selectedElement) => {
-      const humanChoice = rps.getHumanChoice(elements, selectedElement.element);
-      const computerChoice = rps.getComputerChoice(elements);
+      const humanChoice = rps.getPlayerChoice(PLAYER_TYPE.HUMAN, elements, selectedElement.element);
+      const computerChoice = rps.getPlayerChoice(PLAYER_TYPE.COMPUTER, elements, null);
 
-      console.log('Player pick', humanChoice.name);
-      console.log('Computer pick', computerChoice.name);
+      console.log(chalk.blueBright('Player one pick', humanChoice.name));
+      console.log(chalk.blueBright('Computer pick', computerChoice.name));
+
+      const winnerItem = rps.getWinner(humanChoice, computerChoice);
+      console.log(chalk.yellow.bold(`Winner is ${winnerItem}`));
     })
     .catch((error) => {
-      console.error('cli play inquirer ERROR:', error);
+      console.error('playerVsComputer inquirer ERROR:', error);
     });
 }
 
 module.exports = {
   getSelectPlatform,
-  play,
+  startGame,
 };

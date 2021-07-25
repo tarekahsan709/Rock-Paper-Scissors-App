@@ -2,6 +2,7 @@
 const program = require('commander');
 
 const cli = require('./cli');
+const { PLATFORM } = require('./constant');
 
 program
   .version('1.0.0', '-v, --version', 'output the current version')
@@ -16,8 +17,8 @@ async function openBrowser() {
 
 async function startGame() {
   const selectedPlatform = await cli.getSelectPlatform();
-  if (selectedPlatform === 'cli') {
-    cli.play();
+  if (selectedPlatform === PLATFORM.CLI) {
+    cli.startGame();
   } else {
     openBrowser();
   }

@@ -1,4 +1,4 @@
-const { ELEMENTS } = require('./constant');
+const { ELEMENTS, PLAYER_TYPE, RESULT_TYPE } = require('./constant');
 
 /**
  * Configure the playing elements with their weakness.
@@ -24,9 +24,9 @@ function getElements() {
 }
 
 /**
- * 
- * @param {object} elements 
- * @param {string} selectedElement 
+ *
+ * @param {object} elements
+ * @param {string} selectedElement
  * @returns object
  */
 function getHumanChoice(elements, selectedElement) {
@@ -34,8 +34,8 @@ function getHumanChoice(elements, selectedElement) {
 }
 
 /**
- * 
- * @param {object} elements 
+ *
+ * @param {object} elements
  * @returns object selected randomly
  */
 function getComputerChoice(elements) {
@@ -54,8 +54,41 @@ function getComputerChoice(elements) {
   return computerChoice;
 }
 
+/**
+ *
+ * @param {string} playerType
+ * @param {list} elements
+ * @param {string} selectedElement
+ * @returns an element
+ */
+function getPlayerChoice(playerType, elements, selectedElement) {
+  if (playerType === PLAYER_TYPE.HUMAN) {
+    return getHumanChoice(elements, selectedElement);
+  }
+  return getComputerChoice(elements);
+}
+
+/**
+*
+* @param {object} playerOne
+* @param {object} playerTwo
+* @returns winner item
+*/
+function getWinner(playerOne, playerTwo) {
+  if (playerOne.name === playerTwo.name) {
+    return RESULT_TYPE.DRAW;
+  }
+  for (const playTwoWeakness of playerTwo.weakness) {
+    if (playTwoWeakness === playerOne.name) {
+      return playerOne.name;
+    }
+  }
+
+  return playerTwo.name;
+}
+
 module.exports = {
   getElements,
-  getHumanChoice,
-  getComputerChoice,
+  getPlayerChoice,
+  getWinner,
 };
