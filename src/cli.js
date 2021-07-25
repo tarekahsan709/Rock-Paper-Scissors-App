@@ -4,7 +4,7 @@ const chalk = require('chalk');
 
 const rps = require('./rps');
 const {
-  PLATFORM, PLAYER_TYPE, ELEMENTS,
+  PLATFORM, GAME_TYPE, PLAYER_TYPE, ELEMENTS,
 } = require('./constant');
 
 const questionElementChoice = [
@@ -25,12 +25,21 @@ const questionPlatformChoice = [
   },
 ];
 
+const questionGameType = [
+  {
+    type: 'rawlist',
+    name: 'type',
+    message: 'Select game type',
+    choices: [GAME_TYPE.PLAYER_VS_COMPUTER, GAME_TYPE.COMPUTER_VS_COMPUTER],
+  },
+];
+
 async function getSelectPlatform() {
   return inquirer.prompt(questionPlatformChoice)
     .then((seletedPlatform) => seletedPlatform.platform);
 }
 
-function startGame() {
+function playerVsComputer() {
   const elements = rps.getElements();
   inquirer
     .prompt(questionElementChoice)
@@ -49,7 +58,50 @@ function startGame() {
     });
 }
 
+function ComputerVsComputer() {
+  try {
+    const elements = rps.getElements();
+    const playerOneChoice = rps.getPlayerChoice(PLAYER_TYPE.COMPUTER, elements, null);
+    const playerTwoChoice = rps.getPlayerChoice(PLAYER_TYPE.COMPUTER, elements, null);
+
+    console.log(chalk.blueBright('Player one pick', playerOneChoice.name));
+    console.log(chalk.blueBright('Player Two pick', playerTwoChoice.name));
+
+    const winnerItem = rps.getWinner(playerOneChoice, playerTwoChoice);
+
+    console.log(chalk.yellow.bold(`Winner is ${winnerItem}`));
+  } catch (error) {
+    console.error('ComputerVsComputer ERROR:', error);
+  }
+}
+
+function startGame(gameType) {
+  if (GAME_TYPE.PLAYER_VS_COMPUTER === gameType) {
+    playerVsComputer();
+  } else {
+    ComputerVsComputer();
+  }
+}
+
+async function getGameType() {
+  return inquirer
+    .prompt(questionGameType)
+    .then((selected) => selected.type)
+    .catch((error) => {
+      console.error('getGameType inquirer ERROR:', error);
+    });
+}
+
+async function play() {
+  try {
+    const gameType = await getGameType();
+    startGame(gameType);
+  } catch (error) {
+    console.error('play ERROR:', error);
+  }
+}
+
 module.exports = {
   getSelectPlatform,
-  startGame,
+  play,
 };

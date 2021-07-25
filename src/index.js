@@ -18,7 +18,7 @@ async function openBrowser() {
 async function startGame() {
   const selectedPlatform = await cli.getSelectPlatform();
   if (selectedPlatform === PLATFORM.CLI) {
-    cli.startGame();
+    cli.play();
   } else {
     openBrowser();
   }
