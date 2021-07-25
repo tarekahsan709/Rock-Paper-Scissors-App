@@ -88,7 +88,10 @@ function getWinner(playerOne, playerTwo) {
 }
 
 module.exports = {
+  configElements,
   getElements,
+  getHumanChoice,
+  getComputerChoice,
   getPlayerChoice,
   getWinner,
 };

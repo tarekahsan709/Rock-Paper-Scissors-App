@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable no-console */
 const inquirer = require('inquirer');
 const chalk = require('chalk');
@@ -42,6 +43,7 @@ const questionPlayAgain = [
   },
 ];
 
+// FIXME: naming
 async function getSelectPlatform() {
   return inquirer.prompt(questionPlatformChoice)
     .then((seletedPlatform) => seletedPlatform.platform);
