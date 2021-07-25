@@ -39,19 +39,32 @@ async function getSelectPlatform() {
     .then((seletedPlatform) => seletedPlatform.platform);
 }
 
+function showWiner(winnerItem, playerOne, playerTwo) {
+  if (winnerItem === playerOne.name) {
+    console.log(chalk.yellow.bold(`Winner is player one ${playerOne.name}`));
+  } else if (winnerItem === playerTwo.name) {
+    console.log(chalk.yellow.bold(`Winner is player two ${playerTwo.name}`));
+  } else {
+    console.log(chalk.yellow.bold('It\'s a draw'));
+  }
+}
+
+function showPlayerPick(playerOne, playerTwo) {
+  console.log(chalk.blueBright('Player one pick', playerOne.name));
+  console.log(chalk.blueBright('Player two pick', playerTwo.name));
+}
+
 function playerVsComputer() {
   const elements = rps.getElements();
   inquirer
     .prompt(questionElementChoice)
     .then((selectedElement) => {
-      const humanChoice = rps.getPlayerChoice(PLAYER_TYPE.HUMAN, elements, selectedElement.element);
-      const computerChoice = rps.getPlayerChoice(PLAYER_TYPE.COMPUTER, elements, null);
+      const playerOneChoice = rps.getPlayerChoice(PLAYER_TYPE.HUMAN, elements, selectedElement.element);
+      const playerTwoChoice = rps.getPlayerChoice(PLAYER_TYPE.COMPUTER, elements, null);
+      showPlayerPick(playerOneChoice, playerTwoChoice);
 
-      console.log(chalk.blueBright('Player one pick', humanChoice.name));
-      console.log(chalk.blueBright('Computer pick', computerChoice.name));
-
-      const winnerItem = rps.getWinner(humanChoice, computerChoice);
-      console.log(chalk.yellow.bold(`Winner is ${winnerItem}`));
+      const winnerItem = rps.getWinner(playerOneChoice, playerTwoChoice);
+      showWiner(winnerItem, playerOneChoice, playerTwoChoice);
     })
     .catch((error) => {
       console.error('playerVsComputer inquirer ERROR:', error);
@@ -63,13 +76,10 @@ function ComputerVsComputer() {
     const elements = rps.getElements();
     const playerOneChoice = rps.getPlayerChoice(PLAYER_TYPE.COMPUTER, elements, null);
     const playerTwoChoice = rps.getPlayerChoice(PLAYER_TYPE.COMPUTER, elements, null);
-
-    console.log(chalk.blueBright('Player one pick', playerOneChoice.name));
-    console.log(chalk.blueBright('Player Two pick', playerTwoChoice.name));
+    showPlayerPick(playerOneChoice, playerTwoChoice);
 
     const winnerItem = rps.getWinner(playerOneChoice, playerTwoChoice);
-
-    console.log(chalk.yellow.bold(`Winner is ${winnerItem}`));
+    showWiner(winnerItem, playerOneChoice, playerTwoChoice);
   } catch (error) {
     console.error('ComputerVsComputer ERROR:', error);
   }
