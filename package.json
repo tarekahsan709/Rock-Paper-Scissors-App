@@ -1,8 +1,9 @@
 {
-  "name": "rock-paper-scissors-app",
+  "name": "rps-cli",
   "version": "1.0.0",
   "description": "A application to play rock paper scissors game in the cli as well as in a browser too",
   "main": "index.js",
+  "bin": "./src/index.js",
   "scripts": {
     "test": "test"
   },
