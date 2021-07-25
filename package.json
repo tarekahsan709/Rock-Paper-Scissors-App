@@ -1,0 +1,17 @@
+{
+  "name": "rock-paper-scissors-app",
+  "version": "1.0.0",
+  "description": "A application to play rock paper scissors game in the cli as well as in a browser too",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "rock",
+    "paper",
+    "scissors",
+    "node-cli"
+  ],
+  "author": "Md. Nazmul Ahsan",
+  "license": "ISC"
+}
