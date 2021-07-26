@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 const express = require('express');
 const path = require('path');
 const program = require('commander');
@@ -26,13 +27,13 @@ function createServer() {
   });
 
   app.listen(port, hostname, () => {
-    console.log(`Listening at https://${hostname}:${port}`);
+    console.log(`Listening at http://${hostname}:${port}`);
   });
 }
 
 async function startGameInBrowser() {
   createServer();
-  await open(`https://${hostname}:${port}`);
+  await open(`http://${hostname}:${port}`);
 }
 
 async function startGame() {

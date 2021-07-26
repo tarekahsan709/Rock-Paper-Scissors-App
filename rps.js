@@ -36,12 +36,14 @@ function getHumanChoice(elements, selectedElement) {
  * @param {object} elements
  * @returns object selected randomly
  */
-function getComputerChoice(elements) {
+function getComputerChoice() {
+  const elements = getElements();
   let randNum = Math.random() * elements.size;
   randNum = Math.floor(randNum);
   let index = 0;
   let computerChoice;
 
+  // eslint-disable-next-line no-unused-vars
   for (const [key, value] of elements) {
     if (index === randNum) {
       computerChoice = value;
@@ -63,7 +65,7 @@ function getPlayerChoice(playerType, elements, selectedElement) {
   if (playerType === PLAYER_TYPE.HUMAN) {
     return getHumanChoice(elements, selectedElement);
   }
-  return getComputerChoice(elements);
+  return getComputerChoice();
 }
 
 /**
