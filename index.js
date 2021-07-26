@@ -1,9 +1,14 @@
 #!/usr/bin/env node
+const express = require('express');
+const path = require('path');
 const program = require('commander');
 const open = require('open');
 
 const cli = require('./cli');
 const { PLATFORM } = require('./util/constant');
+
+const hostname = 'localhost';
+const port = 3000;
 
 program
   .version('1.0.0', '-v, --version', 'output the current version')
@@ -13,20 +18,21 @@ program
 
 program.parse(process.argv);
 
-async function openBrowser() {
-  await open(`${__dirname}/web/index.html`);
+function createServer() {
+  const app = express();
+  app.use(express.static(path.join(__dirname, '/app/dist')));
+  app.get('*', (req, res) => {
+    res.sendFile(__dirname, '/app/dist/index.html');
+  });
 
-  /* FIXME: Need to check using server
-  const server = http.createServer(function (req, res) {
-    res.writeHead(200, {"Content-Type": "text/html"});
-    fs.createReadStream(`${__dirname}/web/index.html`)
-      .pipe(res);
+  app.listen(port, hostname, () => {
+    console.log(`Listening at https://${hostname}:${port}`);
   });
-  server.listen(3000, ()=>{
-    console.log('Server is running');
-  });
-  await open(`localhost:3000`);
-  */
+}
+
+async function startGameInBrowser() {
+  createServer();
+  await open(`https://${hostname}:${port}`);
 }
 
 async function startGame() {
@@ -34,7 +40,7 @@ async function startGame() {
   if (selectedPlatform === PLATFORM.CLI) {
     await cli.play();
   } else {
-    await openBrowser();
+    await startGameInBrowser();
   }
 }
 
@@ -42,5 +48,5 @@ const options = program.opts();
 if (options.play) {
   startGame();
 } else if (options.browser) {
-  openBrowser();
+  startGameInBrowser();
 }
