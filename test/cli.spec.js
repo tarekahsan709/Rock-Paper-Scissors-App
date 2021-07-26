@@ -3,10 +3,10 @@
 const { assert } = require('chai');
 const inquirer = require('inquirer');
 
-const cli = require('../src/cli');
+const cli = require('../cli');
 const {
   PLATFORM,
-} = require('../src/constant');
+} = require('../util/constant');
 
 describe('Test cli functionalities', () => {
   describe('getSelectPlatform()', () => {

@@ -1,7 +1,7 @@
 const { assert } = require('chai');
 
-const rps = require('../src/rps');
-const { ELEMENTS } = require('../src/constant');
+const rps = require('../rps');
+const { ELEMENTS } = require('../util/constant');
 
 describe('rock-paper-scissor', () => {
   describe('configElements()', () => {

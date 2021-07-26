@@ -1,10 +1,9 @@
 #!/usr/bin/env node
-// /* eslint-disable */
 const program = require('commander');
 const open = require('open');
 
 const cli = require('./cli');
-const { PLATFORM } = require('./constant');
+const { PLATFORM } = require('./util/constant');
 
 program
   .version('1.0.0', '-v, --version', 'output the current version')
@@ -31,11 +30,11 @@ async function openBrowser() {
 }
 
 async function startGame() {
-  const selectedPlatform = await cli.getSelectPlatform();
+  const selectedPlatform = await cli.getSelectedPlatform();
   if (selectedPlatform === PLATFORM.CLI) {
-    cli.play();
+    await cli.play();
   } else {
-    openBrowser();
+    await openBrowser();
   }
 }
 

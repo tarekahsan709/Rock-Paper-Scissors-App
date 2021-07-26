@@ -1,4 +1,4 @@
-const { ELEMENTS, PLAYER_TYPE, RESULT_TYPE } = require('./constant');
+const { ELEMENTS, PLAYER_TYPE, RESULT_TYPE } = require('./util/constant');
 
 /**
  * Configure the playing elements with their weakness.
@@ -18,9 +18,7 @@ function configElements() {
  * @returns list of playing elements
  */
 function getElements() {
-  const elements = configElements();
-
-  return elements;
+  return configElements();
 }
 
 /**

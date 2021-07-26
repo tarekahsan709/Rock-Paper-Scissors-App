@@ -6,7 +6,7 @@ const chalk = require('chalk');
 const rps = require('./rps');
 const {
   PLATFORM, GAME_TYPE, PLAYER_TYPE, ELEMENTS,
-} = require('./constant');
+} = require('./util/constant');
 
 const questionElementChoice = [
   {
@@ -43,13 +43,12 @@ const questionPlayAgain = [
   },
 ];
 
-// FIXME: naming
-async function getSelectPlatform() {
+async function getSelectedPlatform() {
   return inquirer.prompt(questionPlatformChoice)
-    .then((seletedPlatform) => seletedPlatform.platform);
+    .then((selectedPlatform) => selectedPlatform.platform);
 }
 
-function showWiner(winnerItem, playerOne, playerTwo) {
+function showWinner(winnerItem, playerOne, playerTwo) {
   if (winnerItem === playerOne.name) {
     console.log(chalk.yellow.bold(`Winner is player one ${playerOne.name}`));
   } else if (winnerItem === playerTwo.name) {
@@ -74,7 +73,7 @@ function playerVsComputer() {
       showPlayerPick(playerOneChoice, playerTwoChoice);
 
       const winnerItem = rps.getWinner(playerOneChoice, playerTwoChoice);
-      showWiner(winnerItem, playerOneChoice, playerTwoChoice);
+      showWinner(winnerItem, playerOneChoice, playerTwoChoice);
       playAgain();
     })
     .catch((error) => {
@@ -90,7 +89,7 @@ function ComputerVsComputer() {
     showPlayerPick(playerOneChoice, playerTwoChoice);
 
     const winnerItem = rps.getWinner(playerOneChoice, playerTwoChoice);
-    showWiner(winnerItem, playerOneChoice, playerTwoChoice);
+    showWinner(winnerItem, playerOneChoice, playerTwoChoice);
     playAgain();
   } catch (error) {
     console.error('ComputerVsComputer ERROR:', error);
@@ -137,6 +136,6 @@ function playAgain() {
 }
 
 module.exports = {
-  getSelectPlatform,
+  getSelectedPlatform,
   play,
 };
