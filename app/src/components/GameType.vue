@@ -5,7 +5,7 @@
       </div>
 
       <div class="col col-lg-4">
-        <b-card no-body bg-variant="Default" class="text-center p-1">
+        <b-card no-body bg-variant="Default" class="text-center p-1 gameType">
           <b-card-text>{{selectedGameType.toUpperCase()}}</b-card-text>
         </b-card>
       </div>
