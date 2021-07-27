@@ -14,32 +14,28 @@
         </div>
       </div>
 
-      <b-modal ref="my-modal" ok-only title="Result">
-        <div class="d-block text-center">
-          <div class="row justify-content-md-center">
-            <div class="col col-lg-5">
-              <p>Player one <br><b>{{playerOne.name}}</b></p>
-            </div>
-            <div class="col col-lg-5">
-              <p>Player Two <br><b>{{playerTwo.name}}</b></p>
-            </div>
-          </div>
-          <h1 class="mt-2"><small>Result</small><br>{{ winner.toUpperCase() }}</h1>
-        </div>
-      </b-modal>
+      <result
+        :player-one="playerOne"
+        :player-two="playerTwo"
+        :winner="winner"
+        ref="resultModal"
+      >
+      </result>
     </div>
 
     <div class="text-center mt-2">
       <b-button
-        v-if="isReady"
+        v-if="isHvsC"
         @click="playHumanVsComputer()"
-        squared variant="primary"
+        squared
+        variant="primary"
       >
         Play</b-button>
       <b-button
         v-if="isCvsC"
         @click="playComputerVsComputer()"
-        squared variant="primary"
+        squared
+        variant="primary"
       >
         Play Again</b-button>
     </div>
@@ -47,11 +43,15 @@
 </template>
 
 <script>
-import rps from '../../../rps';
 import { GAME_TYPE } from '../../../util/constant';
+import rps from '../../../rps';
+import Result from './Result.vue';
 
 export default {
-  name: 'Elements',
+  name: 'Game',
+  components: {
+    Result,
+  },
   props: {
     gameType: String,
   },
@@ -70,7 +70,7 @@ export default {
       winner: '',
       playerOne: { },
       playerTwo: { },
-      isReady: false,
+      isHvsC: false,
       isCvsC: false,
       activeIndex: undefined,
     };
@@ -90,26 +90,23 @@ export default {
       const computerElement = rps.getComputerChoice();
       this.playerOne = selectedElement;
       this.playerTwo = computerElement;
+
       this.activeIndex = key;
-      this.isReady = true;
+      this.isHvsC = true;
     },
     playHumanVsComputer() {
       this.winner = rps.getWinner(this.playerOne, this.playerTwo);
-      this.showModal();
-      this.isReady = false;
+      this.$refs.resultModal.open();
+
+      this.isHvsC = false;
       this.activeIndex = undefined;
     },
     playComputerVsComputer() {
       this.playerOne = rps.getComputerChoice();
       this.playerTwo = rps.getComputerChoice();
+
       this.winner = rps.getWinner(this.playerOne, this.playerTwo);
-      this.showModal();
-    },
-    showModal() {
-      this.$refs['my-modal'].show();
-    },
-    hideModal() {
-      this.$refs['my-modal'].hide();
+      this.$refs.resultModal.open();
     },
   },
 };

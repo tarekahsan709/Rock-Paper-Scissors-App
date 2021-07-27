@@ -1,19 +1,19 @@
 <template>
   <div class="container mt-4 p-4">
-    <app-game-type @onSelectedGameType="setGameType"></app-game-type>
-    <app-elements :game-type="gameType"></app-elements>
+    <game-type @onSelectedGameType="setGameType"></game-type>
+    <game :game-type="gameType"></game>
   </div>
 </template>
 
 <script>
 import GameType from './components/GameType.vue';
-import Elements from './components/Elements.vue';
+import Game from './components/Game.vue';
 
 export default {
   name: 'App',
   components: {
-    'app-game-type': GameType,
-    'app-elements': Elements,
+    GameType,
+    Game,
   },
   data() {
     return {
@@ -27,6 +27,7 @@ export default {
   },
 };
 </script>
+
 <style>
 body {
   color: #343a40;
