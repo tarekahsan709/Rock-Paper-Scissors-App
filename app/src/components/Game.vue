@@ -3,7 +3,7 @@
     <div class="row justify-content-md-center mt-4">
       <h3 class="text-center" v-show="!isCvsC">Select the element</h3>
 
-      <div class="col col-lg-2" v-for="(value, key) in elements" :key="key">
+      <div class="col col-lg-3" v-for="(value, key) in elements" :key="key">
         <div class="card element"
              @click="onSelectElement(value, key)"
              :class="{ 'active': activeIndex === key }"

@@ -1,8 +1,12 @@
 <template>
-  <div class="container mt-4 p-4">
-    <game-type @onSelectedGameType="setGameType"></game-type>
-    <game :game-type="gameType"></game>
+  <div>
+    <h1 class="text-center mt-2">Welcome to Rock Paper Scissor</h1>
+    <div class="container mt-2 p-4">
+      <game-type @onSelectedGameType="setGameType"></game-type>
+      <game :game-type="gameType"></game>
+    </div>
   </div>
+
 </template>
 
 <script>
