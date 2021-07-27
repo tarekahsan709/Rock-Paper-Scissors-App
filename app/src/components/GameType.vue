@@ -1,11 +1,58 @@
 <template>
-  <p><b>Game Type:</b> You Vs Computer</p>
+    <div class="row justify-content-center mt-2 mb-2">
+      <div class="col col-lg-2">
+        <b-button @click="openGameTypeModal()">Game Type</b-button>
+      </div>
+
+      <div class="col col-lg-4">
+        <b-card no-body bg-variant="Default" class="text-center p-1">
+          <b-card-text>{{selectedGameType.toUpperCase()}}</b-card-text>
+        </b-card>
+      </div>
+
+      <div>
+        <b-modal ref="gameType-modal" ok-only title="Select Game Type" size="sm">
+          <b-button
+            variant="outline-secondary"
+            @click="selectGameType(gameType.PLAYER_VS_COMPUTER)">
+            {{gameType.PLAYER_VS_COMPUTER.toUpperCase() }}
+          </b-button>
+          <b-button
+            variant="outline-secondary"
+            @click="selectGameType(gameType.COMPUTER_VS_COMPUTER)"
+            class="mt-2">
+            {{gameType.COMPUTER_VS_COMPUTER.toUpperCase() }}
+          </b-button>
+        </b-modal>
+      </div>
+    </div>
 </template>
 
 <script>
+import { GAME_TYPE } from '../../../util/constant';
+
 export default {
   name: 'GameType',
-  props: {
+  data() {
+    return {
+      gameType: '',
+      selectedGameType: '',
+    };
+  },
+  created() {
+    this.gameType = JSON.parse(JSON.stringify(GAME_TYPE));
+    this.selectedGameType = this.gameType.PLAYER_VS_COMPUTER;
+    this.$emit('onSelectedGameType', this.selectedGameType);
+  },
+  methods: {
+    selectGameType(selectedGameType) {
+      this.selectedGameType = selectedGameType;
+      this.$emit('onSelectedGameType', this.selectedGameType);
+      this.$refs['gameType-modal'].hide();
+    },
+    openGameTypeModal() {
+      this.$refs['gameType-modal'].show();
+    },
   },
 };
 </script>

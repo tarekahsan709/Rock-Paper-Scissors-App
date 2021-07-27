@@ -31,6 +31,10 @@ function getHumanChoice(elements, selectedElement) {
   return elements.get(selectedElement.toLowerCase());
 }
 
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
 /**
  *
  * @param {object} elements
@@ -38,8 +42,7 @@ function getHumanChoice(elements, selectedElement) {
  */
 function getComputerChoice() {
   const elements = getElements();
-  let randNum = Math.random() * elements.size;
-  randNum = Math.floor(randNum);
+  let randNum = getRandomInt(elements.size);
   let index = 0;
   let computerChoice;
 

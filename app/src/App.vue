@@ -1,28 +1,34 @@
 <template>
-  <div class="container">
-    <app-head title="Rock Paper Scissor"></app-head>
-
-    <div class="row justify-content-center mt-2">
-      <div class="col col-lg-3">
-        <app-game-type></app-game-type>
-      </div>
-    </div>
-
-    <app-elements></app-elements>
+  <div class="container mt-4 p-4">
+    <app-game-type @onSelectedGameType="setGameType"></app-game-type>
+    <app-elements :game-type="gameType"></app-elements>
   </div>
 </template>
 
 <script>
-import Header from './components/Header.vue';
 import GameType from './components/GameType.vue';
 import Elements from './components/Elements.vue';
 
 export default {
   name: 'App',
   components: {
-    'app-head': Header,
     'app-game-type': GameType,
     'app-elements': Elements,
   },
+  data() {
+    return {
+      gameType: '',
+    };
+  },
+  methods: {
+    setGameType(gameType) {
+      this.gameType = gameType;
+    },
+  },
 };
 </script>
+<style>
+body {
+  color: #343a40;
+}
+</style>
