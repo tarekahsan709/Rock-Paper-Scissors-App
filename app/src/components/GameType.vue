@@ -11,18 +11,20 @@
       </div>
 
       <div>
-        <b-modal ref="gameType-modal" ok-only title="Select Game Type" size="sm">
-          <b-button
-            variant="outline-secondary"
-            @click="selectGameType(gameType.PLAYER_VS_COMPUTER)">
-            {{gameType.PLAYER_VS_COMPUTER.toUpperCase() }}
-          </b-button>
-          <b-button
-            variant="outline-secondary"
-            @click="selectGameType(gameType.COMPUTER_VS_COMPUTER)"
-            class="mt-2">
-            {{gameType.COMPUTER_VS_COMPUTER.toUpperCase() }}
-          </b-button>
+        <b-modal ref="gameTypeModal" ok-only title="Select Game Type" size="sm">
+          <div class="text-center">
+            <b-button
+              variant="outline-secondary"
+              @click="selectGameType(gameType.PLAYER_VS_COMPUTER)">
+              {{gameType.PLAYER_VS_COMPUTER.toUpperCase() }}
+            </b-button>
+            <b-button
+              variant="outline-secondary"
+              @click="selectGameType(gameType.COMPUTER_VS_COMPUTER)"
+              class="mt-2">
+              {{gameType.COMPUTER_VS_COMPUTER.toUpperCase() }}
+            </b-button>
+          </div>
         </b-modal>
       </div>
     </div>
@@ -48,10 +50,10 @@ export default {
     selectGameType(selectedGameType) {
       this.selectedGameType = selectedGameType;
       this.$emit('onSelectedGameType', this.selectedGameType);
-      this.$refs['gameType-modal'].hide();
+      this.$refs.gameTypeModal.hide();
     },
     openGameTypeModal() {
-      this.$refs['gameType-modal'].show();
+      this.$refs.gameTypeModal.show();
     },
   },
 };
