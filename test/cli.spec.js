@@ -9,12 +9,12 @@ const {
 } = require('../util/constant');
 
 describe('Test cli functionalities', () => {
-  describe('getSelectPlatform()', () => {
+  describe('getSelectedPlatform()', () => {
     before(() => {
       inquirer.prompt = () => Promise.resolve({ platform: PLATFORM.CLI });
     });
     it('should get cli', () => {
-      cli.getSelectPlatform().then((answers) => {
+      cli.getSelectedPlatform().then((answers) => {
         assert.equal(answers, PLATFORM.CLI);
       });
     });

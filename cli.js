@@ -39,7 +39,7 @@ const questionPlayAgain = [
   {
     type: 'confirm',
     name: 'confirmation',
-    message: 'Are you want to play again ?',
+    message: 'Do you want to play again ?',
   },
 ];
 
