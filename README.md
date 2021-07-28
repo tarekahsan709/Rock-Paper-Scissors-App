@@ -14,7 +14,7 @@ An app to allow user play Rock Paper Scissor via the browser or via an interacti
 
 
 ##  Installation
-To run and build the application, you have to install dependencies for both CLI and Web.
+To run and build the application, **You have to install dependencies for both CLI and Web**
   #### CLI
   1. Install [Node.js](https://nodejs.org). Version: `14.17.3`
   2. From project root folder run: `npm install` to install all the CLI dependencies.
