@@ -1,4 +1,7 @@
 # Rock Paper Scissors App
+[![](https://github.com/tarekahsan709/Rock-Paper-Scissors-App/workflows/Build/badge.svg)](https://github.com/tarekahsan709/Rock-Paper-Scissors-App/actions?query=workflow%3ABuild) 
+[![](https://github.com/tarekahsan709/Rock-Paper-Scissors-App/workflows/Tests/badge.svg)](https://github.com/tarekahsan709/Rock-Paper-Scissors-App/actions?query=workflow%3ATests)
+
 An app to allow user play Rock Paper Scissor via the browser or via an interactive CLI
 
 - You can select playing platform

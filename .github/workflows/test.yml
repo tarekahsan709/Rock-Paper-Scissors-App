@@ -1,4 +1,4 @@
-name: Vue js CI
+name: Tests
 on:
   push:
     branches: [ main ]
@@ -6,12 +6,12 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  Test_CLI:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [ 14.x, 16.x ]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -19,16 +19,14 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: |
-          cd app
-          npm ci
-          npm run build
-  Test:
+      - run: npm ci
+      - run: npm test
+
+  Test_Vue:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [ 14.x, 16.x ]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
