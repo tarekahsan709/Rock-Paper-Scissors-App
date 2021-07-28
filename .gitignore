@@ -12,6 +12,7 @@ coverage
 
 # Editor config
 .vscode
+.idea/*
 
 # Others
 .DS_Store
